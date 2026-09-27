@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IPA — Independent Printmakers Association</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F8F4; --ink:#1A1F2E; --blue:#2248C9; --pink:#FF3D9A; --muted:#5A6072; --line:#D9DCE3; --panel:#FFFFFF;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#14171F;--ink:#EDEFF4;--blue:#6E8CFF;--pink:#FF6FB5;--muted:#A3A9B8;--line:#2C3140;--panel:#1B1F29}}
+:root[data-theme="dark"]{--paper:#14171F;--ink:#EDEFF4;--blue:#6E8CFF;--pink:#FF6FB5;--muted:#A3A9B8;--line:#2C3140;--panel:#1B1F29}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.65 "Literata",Georgia,serif}
+h1,h2,h3,nav,button,.tag{font-family:"Bricolage Grotesque",system-ui,sans-serif}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+.wrap{max-width:68rem;margin:0 auto;padding:0 1.25rem}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0}
+.logo{font:800 1.4rem "Bricolage Grotesque",sans-serif;letter-spacing:-.02em;color:var(--ink);text-decoration:none}
+nav a{margin-left:1.25rem;color:var(--ink);text-decoration:none;font-weight:700}
+nav a:hover{color:var(--blue)}
+
+/* Hero: riso two-colour overprint */
+.hero{padding:3rem 0 4rem}
+.overprint{position:relative;font:800 clamp(4.5rem,18vw,13rem)/.85 "Bricolage Grotesque",sans-serif;letter-spacing:-.05em;margin:0}
+.overprint span{display:block}
+.overprint .b{color:var(--blue);mix-blend-mode:multiply}
+.overprint .p{position:absolute;inset:0;color:var(--pink);mix-blend-mode:multiply;transform:translate(.06em,.04em);animation:reg 1.4s cubic-bezier(.2,.8,.2,1) both}
+@media (prefers-color-scheme:dark){.overprint .b,.overprint .p{mix-blend-mode:screen}}
+@keyframes reg{from{transform:translate(.3em,-.15em);opacity:0}}
+@media (prefers-reduced-motion:reduce){.overprint .p{animation:none}}
+.hero p.lede{font-size:1.3rem;max-width:34rem;margin:1.5rem 0 0}
+.facts{display:flex;flex-wrap:wrap;gap:.5rem 2rem;margin-top:1.5rem;color:var(--muted)}
+.facts strong{color:var(--ink)}
+.btn{display:inline-block;margin-top:2rem;background:var(--ink);color:var(--paper);padding:.8rem 1.4rem;border-radius:999px;font-weight:700;text-decoration:none}
+.btn:hover{background:var(--blue)}
+
+section{padding:4rem 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(2rem,5vw,3rem);letter-spacing:-.03em;line-height:1;margin:0 0 2rem}
+
+/* Video placeholder */
+.video{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:
+  radial-gradient(circle,var(--blue) 28%,transparent 30%) 0 0/14px 14px,
+  radial-gradient(circle,var(--pink) 28%,transparent 30%) 7px 7px/14px 14px;opacity:.95}
+.video::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,var(--paper) 110%)}
+.video button{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);width:5.5rem;height:5.5rem;border-radius:50%;border:0;background:var(--paper);color:var(--ink);cursor:pointer;display:grid;place-items:center}
+.video button svg{width:2rem;margin-left:.3rem}
+.video .note{position:absolute;z-index:1;left:1rem;bottom:1rem;background:var(--paper);padding:.35rem .75rem;border-radius:4px;font-size:.95rem}
+.video-caption{color:var(--muted);margin-top:.75rem}
+
+/* Program */
+.program{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:2.5rem}
+.program h3{font-size:1.35rem;margin:0 0 .4rem;letter-spacing:-.01em}
+.program p{margin:0;max-width:30rem}
+.program .swatch{width:2.5rem;height:.5rem;margin-bottom:1rem;border-radius:2px}
+
+/* Schedule */
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.tabs button{font-weight:700;font-size:1rem;background:transparent;border:2px solid var(--ink);color:var(--ink);padding:.5rem 1.1rem;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.day{display:none}
+.day.active{display:block}
+.slot{display:grid;grid-template-columns:6.5rem 1fr;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--line)}
+.slot time{font:700 1.05rem "Bricolage Grotesque",sans-serif;color:var(--blue)}
+.slot h3{font-size:1.1rem;margin:0}
+.slot p{margin:.15rem 0 0;color:var(--muted)}
+.tag{display:inline-block;font-size:.8rem;font-weight:700;padding:.1rem .5rem;border-radius:3px;margin-left:.4rem;vertical-align:.15em;background:var(--pink);color:#fff}
+.tag.w{background:var(--blue)}
+
+footer{padding:3rem 0 4rem;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
+@media (max-width:560px){nav a{margin-left:.8rem;font-size:.95rem}.slot{grid-template-columns:1fr;gap:.2rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="#">IPA</a>
+    <nav><a href="#program">Program</a><a href="#schedule">Schedule</a><a href="#register">Register</a></nav>
+  </header>
+
+  <div class="hero">
+    <h1 class="overprint" aria-label="IPA Congress 2026"><span class="b">IPA<br>’26</span><span class="p" aria-hidden="true">IPA<br>’26</span></h1>
+    <p class="lede">The annual congress of the Independent Printmakers Association. Three days of presses, talks and ink under your fingernails.</p>
+    <div class="facts"><span><strong>Oct 16–18, 2026</strong></span><span><strong>Tiskarna Hall</strong>, Ljubljana</span><span><strong>240</strong> seats</span></div>
+    <a class="btn" id="register" href="#schedule">Get a pass — €85</a>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Last year in four minutes</h2>
+    <div class="video" role="img" aria-label="Video placeholder">
+      <button type="button" aria-label="Play video" onclick="this.parentElement.querySelector('.note').textContent='Video coming soon — we’re still editing it.'">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>
+      </button>
+      <span class="note">IPA Congress 2025 recap · 4:12</span>
+    </div>
+    <p class="video-caption">Filmed at the 2025 congress in Kraków.</p>
+  </div>
+</section>
+
+<section id="program">
+  <div class="wrap">
+    <h2>Program</h2>
+    <div class="program">
+      <div><div class="swatch" style="background:var(--blue)"></div><h3>Hands-on workshops</h3><p>Small groups on real presses: linocut, drypoint, risograph and screen printing. All materials included.</p></div>
+      <div><div class="swatch" style="background:var(--pink)"></div><h3>Talks</h3><p>Twelve short talks from working printmakers, studio owners and one very opinionated paper mill.</p></div>
+      <div><div class="swatch" style="background:var(--ink)"></div><h3>Print fair</h3><p>Saturday afternoon market with 60 member tables. Bring cash and a flat folder.</p></div>
+      <div><div class="swatch" style="background:var(--muted)"></div><h3>Portfolio reviews</h3><p>Fifteen-minute one-on-ones with curators and publishers. Sign up at the desk on day one.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="schedule">
+  <div class="wrap">
+    <h2>Schedule</h2>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-d="1">Fri 16</button>
+      <button role="tab" aria-selected="false" data-d="2">Sat 17</button>
+      <button role="tab" aria-selected="false" data-d="3">Sun 18</button>
+    </div>
+
+    <div class="day active" id="d1">
+      <div class="slot"><time>09:00</time><div><h3>Registration and coffee</h3><p>Main foyer. Pick up your badge and apron.</p></div></div>
+      <div class="slot"><time>10:00</time><div><h3>Opening: why print still matters <span class="tag">Talk</span></h3><p>Marta Kovač, IPA president</p></div></div>
+      <div class="slot"><time>11:30</time><div><h3>Linocut from zero <span class="tag w">Workshop</span></h3><p>Studio A · 20 people</p></div></div>
+      <div class="slot"><time>14:00</time><div><h3>Risograph colour separation <span class="tag w">Workshop</span></h3><p>Studio B · 16 people</p></div></div>
+      <div class="slot"><time>19:00</time><div><h3>Welcome dinner</h3><p>Courtyard. Included with every pass.</p></div></div>
+    </div>
+
+    <div class="day" id="d2">
+      <div class="slot"><time>09:30</time><div><h3>Paper is not neutral <span class="tag">Talk</span></h3><p>Jonas Lind, Hahnemühle archive</p></div></div>
+      <div class="slot"><time>10:30</time><div><h3>Drypoint on recycled plastic <span class="tag w">Workshop</span></h3><p>Studio A · 14 people</p></div></div>
+      <div class="slot"><time>13:00</time><div><h3>Print fair</h3><p>Great hall. Open to the public until 18:00.</p></div></div>
+      <div class="slot"><time>15:00</time><div><h3>Portfolio reviews</h3><p>Library. Book a slot on day one.</p></div></div>
+      <div class="slot"><time>20:00</time><div><h3>Members’ annual meeting</h3><p>Main hall. Budget, elections, 2027 host city.</p></div></div>
+    </div>
+
+    <div class="day" id="d3">
+      <div class="slot"><time>10:00</time><div><h3>Running a shared studio without going broke <span class="tag">Talk</span></h3><p>Panel with four studio founders</p></div></div>
+      <div class="slot"><time>11:30</time><div><h3>Screen printing on fabric <span class="tag w">Workshop</span></h3><p>Studio B · 18 people</p></div></div>
+      <div class="slot"><time>14:00</time><div><h3>Collective print: one poster, 240 hands</h3><p>Everyone pulls one pass. Everyone takes one home.</p></div></div>
+      <div class="slot"><time>16:00</time><div><h3>Closing</h3><p>Awards and see you next year.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Independent Printmakers Association · Trubarjeva 14, Ljubljana · <a href="mailto:hello@ipa.example">hello@ipa.example</a>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));
+  document.querySelectorAll('.day').forEach(d=>d.classList.toggle('active',d.id==='d'+b.dataset.d));
+}));
+</script>
+</body>
+</html>
